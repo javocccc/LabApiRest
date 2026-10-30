@@ -7,3 +7,7 @@ canciones = [
     {"id": 2, "titulo": "Gracias a la vida", "artista": "Violeta Parra", "anio": 1966, "genero": "Folclor"},
     {"id": 3, "titulo": "Billie Jean", "artista": "Michael Jackson", "anio": 1982, "genero": "Pop"},
 ]
+
+@api_view(['GET'])
+def listar_canciones(request):
+    return Response(canciones)
