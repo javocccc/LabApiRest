@@ -1,44 +1,10 @@
 from rest_framework.decorators import api_view
-from rest_framework.views import APIView
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
-from django.shortcuts import get_object_or_404
 
 from .models import Libro
 from .serializers import LibroSerializer
-
-
-class LibroList(APIView):
-    def get(self, request):
-        libros = Libro.objects.all().order_by('id')
-        serializer = LibroSerializer(libros, many=True)
-        return Response(serializer.data)
-
-    def post(self, request):
-        serializer = LibroSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-
-class LibroDetail(APIView):
-    def get_object(self, pk):
-        return get_object_or_404(Libro, pk=pk)
-
-    def get(self, request, pk):
-        serializer = LibroSerializer(self.get_object(pk))
-        return Response(serializer.data)
-
-    def put(self, request, pk):
-        serializer = LibroSerializer(self.get_object(pk), data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
-
-    def delete(self, request, pk):
-        self.get_object(pk).delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class LibroViewSet(viewsets.ModelViewSet):
