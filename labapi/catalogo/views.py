@@ -1,6 +1,16 @@
 from rest_framework.decorators import api_view
+from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
+
+from .models import Libro
+from .serializers import LibroSerializer
+
+
+class LibroViewSet(viewsets.ModelViewSet):
+    queryset = Libro.objects.all().order_by('id')
+    serializer_class = LibroSerializer
+
 
 canciones = [
     {"id": 1, "titulo": "Bohemian Rhapsody", "artista": "Queen", "anio": 1975, "genero": "Rock"},
