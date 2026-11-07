@@ -43,3 +43,8 @@ class CancionDetail(APIView):
     def delete(self, request, pk):
         self.get_object(pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class CancionViewSet(viewsets.ModelViewSet):
+    queryset = Cancion.objects.all().order_by('id')
+    serializer_class = CancionSerializer
