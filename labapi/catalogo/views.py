@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -23,3 +24,22 @@ class CancionList(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class CancionDetail(APIView):
+    def get_object(self, pk):
+        return get_object_or_404(Cancion, pk=pk)
+
+    def get(self, request, pk):
+        serializer = CancionSerializer(self.get_object(pk))
+        return Response(serializer.data)
+
+    def put(self, request, pk):
+        serializer = CancionSerializer(self.get_object(pk), data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+    def delete(self, request, pk):
+        self.get_object(pk).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
