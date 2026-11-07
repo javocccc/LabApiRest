@@ -6,7 +6,6 @@ router = DefaultRouter()
 router.register('libros', views.LibroViewSet, basename='libro')
 
 urlpatterns = [
-    path('canciones/', views.listar_canciones),
-    path('canciones/crear/', views.crear_cancion),
+    path('canciones/', views.CancionList.as_view()),
     path('', include(router.urls)),
 ]
