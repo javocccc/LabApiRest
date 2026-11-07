@@ -4,9 +4,8 @@ from . import views
 
 router = DefaultRouter()
 router.register('libros', views.LibroViewSet, basename='libro')
+router.register('canciones', views.CancionViewSet, basename='cancion')
 
 urlpatterns = [
-    path('canciones/', views.listar_canciones),
-    path('canciones/crear/', views.crear_cancion),
     path('', include(router.urls)),
 ]
